@@ -1,0 +1,11 @@
+/* CSS for Weather component */
+#weather-info-container {
+    color: white;
+    background-color: slategray;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 24px;
+}
+.weather-properties {
+    font-weight: bold;
+}

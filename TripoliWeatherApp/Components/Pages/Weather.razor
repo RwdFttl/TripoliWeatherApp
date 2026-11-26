@@ -1,0 +1,37 @@
+﻿@page "/weather"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using TripoliWeatherApp.Services
+@inject WeatherService WeatherService
+
+<PageTitle>Tripoli Weather</PageTitle>
+
+<h1>Current Weather in Tripoli, Lebanon</h1>
+
+@if (isLoading)
+{
+    <p>Loading weather...</p>
+}
+else if (weather == null)
+{
+    <p>Location cant be found ):</p>
+}
+else
+{
+    <div id="weather-info-container">
+        <div class="weather-properties"> @weather.WeatherCodeDescription</div>
+        <div><span class="weather-properties">Wind Speed:</span> @weather.WindSpeed km/h</div>
+        <div><span class="weather-properties">Temperature:</span> @weather.Temperature °C</div>
+        <div ><span class="weather-properties">Humidity:</span> @weather.Humidity %</div>
+    </div>
+}
+
+@code {
+    private CurrentWeather? weather;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        weather = await WeatherService.GetGeoWeatherAsync();
+        isLoading = false;
+    }
+}
